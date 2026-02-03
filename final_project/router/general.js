@@ -60,10 +60,10 @@ public_users.get('/isbn/:isbn', async (req, res) => {
 });
 
 // Get book details based on author
-public_users.get('/author/:author', function (req, res) {
+public_users.get('/author/:author', async (req, res) => {
   try {
     author = req.params.author
-    let book = Object.values(books).filter((item) => item.author === author)
+    const book = await Promise.resolve(Object.values(books).filter((item) => item.author === author))
 
     if (book.length > 0) {
       return res.status(200).json({ book })
@@ -78,10 +78,10 @@ public_users.get('/author/:author', function (req, res) {
 });
 
 // Get all books based on title
-public_users.get('/title/:title', function (req, res) {
+public_users.get('/title/:title', async (req, res) => {
   try {
     title = req.params.title
-    let book = Object.values(books).filter((item) => item.title === title)
+    const book = await Promise.resolve(Object.values(books).filter((item) => item.title === title))
 
     if (book.length > 0) {
       return res.status(200).json({ book })
