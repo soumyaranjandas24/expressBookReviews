@@ -96,10 +96,10 @@ public_users.get('/title/:title', async (req, res) => {
 });
 
 //  Get book review
-public_users.get('/review/:isbn', function (req, res) {
+public_users.get('/review/:isbn', async (req, res) => {
   try {
     isbn = req.params.isbn
-    let book = books[isbn]
+    const book = await Promise.resolve(books[isbn])
 
 
     if (book) {
