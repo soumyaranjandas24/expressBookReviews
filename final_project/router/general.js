@@ -100,7 +100,6 @@ public_users.get('/review/:isbn', async (req, res) =>{
   try {
     isbn = req.params.isbn
     const book = await Promise.resolve(books[isbn])
-    const book = await Promise.resolve(books[isbn])
 
 
     if (book) {
