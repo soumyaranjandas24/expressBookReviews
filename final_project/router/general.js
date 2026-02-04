@@ -41,9 +41,9 @@ public_users.get('/', async (req, res) => {
 });
 
 // Get book details based on ISBN
-public_users.get('/isbn/:isbn', async (req, res) => {
+public_users.get('/isbn', async (req, res) => {
   try {
-    isbn = req.params.isbn
+    isbn = req.body.isbn
     const data = await Promise.resolve(books);
     const book = data[isbn]
 
@@ -60,9 +60,9 @@ public_users.get('/isbn/:isbn', async (req, res) => {
 });
 
 // Get book details based on author
-public_users.get('/author/:author', async (req, res) => {
+public_users.get('/author', async (req, res) => {
   try {
-    author = req.params.author
+    author = req.body.author
     const data = await Promise.resolve(books);
     const book = Object.values(data).filter((item) => item.author === author)
 
@@ -79,9 +79,9 @@ public_users.get('/author/:author', async (req, res) => {
 });
 
 // Get all books based on title
-public_users.get('/title/:title', async (req, res) => {
+public_users.get('/title', async (req, res) => {
   try {
-    title = req.params.title
+    title = req.body.title
     const data = await Promise.resolve(books);
     const book = Object.values(data).filter((item) => item.title === title)
 
@@ -98,9 +98,9 @@ public_users.get('/title/:title', async (req, res) => {
 });
 
 //  Get book review
-public_users.get('/review/:isbn', async (req, res) =>{
+public_users.get('/review', async (req, res) =>{
   try {
-    isbn = req.params.isbn
+    isbn = req.body.isbn
     const data = await Promise.resolve(books);
     const book = data[isbn]
 
