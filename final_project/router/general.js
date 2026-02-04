@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios')
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
@@ -31,7 +32,8 @@ public_users.post("/register", (req, res) => {
 // Get the book list available in the shop
 public_users.get('/', async (req, res) => {
   try {
-    const data = await Promise.resolve(books);
+    const data = await Promise.resolve(books)
+
 
     res.json(data);
   } catch (error) {
@@ -41,11 +43,11 @@ public_users.get('/', async (req, res) => {
 });
 
 // Get book details based on ISBN
-public_users.get('/isbn', async (req, res) => {
+public_users.get('/isbn/:isbn', async (req, res) => {
   try {
-    isbn = req.body.isbn
-    const data = await Promise.resolve(books);
-    const book = data[isbn]
+    const isbn = req.params.isbn
+    const data = await axios.get('http://localhost:5000/')
+    const book = data.data[isbn]
 
     if (book) {
       return res.status(200).json({ book: book })
@@ -60,11 +62,11 @@ public_users.get('/isbn', async (req, res) => {
 });
 
 // Get book details based on author
-public_users.get('/author', async (req, res) => {
+public_users.get('/author/:author', async (req, res) => {
   try {
-    author = req.body.author
-    const data = await Promise.resolve(books);
-    const book = Object.values(data).filter((item) => item.author === author)
+    author = req.params.author
+    const data = await axios.get('http://localhost:5000/')
+    const book = Object.values(data.data).filter((item) => item.author === author)
 
     if (book.length > 0) {
       return res.status(200).json({ book })
@@ -79,11 +81,11 @@ public_users.get('/author', async (req, res) => {
 });
 
 // Get all books based on title
-public_users.get('/title', async (req, res) => {
+public_users.get('/title/:title', async (req, res) => {
   try {
-    title = req.body.title
-    const data = await Promise.resolve(books);
-    const book = Object.values(data).filter((item) => item.title === title)
+    title = req.params.title
+    const data = await axios.get('http://localhost:5000/')
+    const book = Object.values(data.data).filter((item) => item.title === title)
 
     if (book.length > 0) {
       return res.status(200).json({ book })
@@ -98,11 +100,11 @@ public_users.get('/title', async (req, res) => {
 });
 
 //  Get book review
-public_users.get('/review', async (req, res) =>{
+public_users.get('/review/:isbn', async (req, res) => {
   try {
-    isbn = req.body.isbn
-    const data = await Promise.resolve(books);
-    const book = data[isbn]
+    isbn = req.params.isbn
+    const data = await axios.get('http://localhost:5000/')
+    const book = data.data[isbn]
 
 
     if (book) {

@@ -54,7 +54,7 @@ regd_users.post("/login", (req, res) => {
       accessToken, username
     }
     console.log(users)
-    return res.status(200).json({ message: "User successfully logged in" });
+    return res.status(200).json({ message: "Login successful" });
   } else {
     return res.status(208).json({ message: "Invalid Login. Check username and password" });
   }
@@ -83,11 +83,11 @@ regd_users.put("/auth/review", (req, res) => {
     // Update existing review
     books[isbn].reviews[username] = review;
     console.log(books[isbn])
-    return res.status(200).json({ message: "Review updated", user: username, review });
+    return res.status(200).json({ message: "Review updated" });
   } else {
     // Add new review
     books[isbn].reviews[username] = review;
-    return res.status(200).json({ message: "Review added", user: username, review });
+    return res.status(200).json({ message: "Review added" });
   }
 });
 
@@ -111,7 +111,7 @@ regd_users.delete("/auth/review", (req, res) => {
   const filteredReview = Object.fromEntries(Object.entries(books[isbn].reviews).filter(([user]) => user !== username))
   books[isbn].reviews = filteredReview
   console.log(books[isbn].reviews)
-  return res.status(200).json({ message: "Review is deleted" })
+  return res.status(200).json({ message: "Review deleted" })
 
 });
 
