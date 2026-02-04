@@ -44,8 +44,8 @@ public_users.get('/', async (req, res) => {
 public_users.get('/isbn/:isbn', async (req, res) => {
   try {
     isbn = req.params.isbn
-
-    const book = await Promise.resolve(books[isbn])
+    const data = await Promise.resolve(books);
+    const book = data[isbn]
 
     if (book) {
       return res.status(200).json({ book: book })
@@ -63,7 +63,8 @@ public_users.get('/isbn/:isbn', async (req, res) => {
 public_users.get('/author/:author', async (req, res) => {
   try {
     author = req.params.author
-    const book = await Promise.resolve(Object.values(books).filter((item) => item.author === author))
+    const data = await Promise.resolve(books);
+    const book = Object.values(data).filter((item) => item.author === author)
 
     if (book.length > 0) {
       return res.status(200).json({ book })
@@ -81,7 +82,8 @@ public_users.get('/author/:author', async (req, res) => {
 public_users.get('/title/:title', async (req, res) => {
   try {
     title = req.params.title
-    const book = await Promise.resolve(Object.values(books).filter((item) => item.title === title))
+    const data = await Promise.resolve(books);
+    const book = Object.values(data).filter((item) => item.title === title)
 
     if (book.length > 0) {
       return res.status(200).json({ book })
@@ -99,7 +101,8 @@ public_users.get('/title/:title', async (req, res) => {
 public_users.get('/review/:isbn', async (req, res) =>{
   try {
     isbn = req.params.isbn
-    const book = await Promise.resolve(books[isbn])
+    const data = await Promise.resolve(books);
+    const book = data[isbn]
 
 
     if (book) {
